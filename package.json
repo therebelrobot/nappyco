@@ -1,0 +1,56 @@
+{
+  "name": "nappyco",
+  "source": "src/nappyco.ts",
+  "main": "dist/nappyco.js",
+  "module": "dist/nappyco.module.js",
+  "unpkg": "dist/nappyco.umd.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "test": "ava",
+    "tdd": "ava --watch --verbose"
+  },
+  "version": "0.0.1",
+  "description": "A basic api consumption library for nappy.co stock images",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/therebelrobot/nappyco.git"
+  },
+  "keywords": [
+    "nappyco",
+    "nappy",
+    "nappy.co",
+    "stock",
+    "images",
+    "stock",
+    "images",
+    "api",
+    "unsplash",
+    "unsplash.com"
+  ],
+  "author": "Aster Haven <npm@therebelrobot.com> (@therebelrobot)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/therebelrobot/nappyco/issues"
+  },
+  "homepage": "https://github.com/therebelrobot/nappyco#readme",
+  "devDependencies": {
+    "@types/parse5": "^5.0.3",
+    "ava": "^3.8.2",
+    "microbundle": "^0.12.0",
+    "ts-node": "^8.10.2"
+  },
+  "dependencies": {
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^2.2.1",
+    "parse5": "^6.0.0"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  }
+}
