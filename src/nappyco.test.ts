@@ -6,7 +6,7 @@ const nappy = new Nappy();
 
 test('should run fetchPosts', async (t) => {
   const results = await nappy.fetchPosts()
-  console.log(results)
+  // console.log(results)
 	t.pass();
 });
 
