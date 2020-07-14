@@ -1,7 +1,9 @@
-name: Build and Run Tests
+name: Build & Tests
 on:
+  release:
+  workflow_dispatch:
   pull_request:
-    branches: [ $default-branch ]
+    branches: primary
 
 jobs:
   build:
