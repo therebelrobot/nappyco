@@ -38,6 +38,29 @@ const htmlApi = (location, initOpts = {}): Promise<string> => {
       return err
     })
 }
+
+const enrichImages = (node) => {
+  const newImage = { ...node }
+  const dataAttrs = node.attrs.filter((attr) => attr.name.includes('data-'))
+  for (const data of dataAttrs) {
+    const name = data.name.split('data-')[1]
+    newImage[name] = data.value
+  }
+
+  const captionNode = parseFragment(newImage.caption)
+  if (!isDefaultTreeDocument(captionNode)) return newImage
+  const linkNode = captionNode.childNodes[0]
+  if (!isDefaultTreeElement(linkNode)) return newImage
+
+  const photographerLink = linkNode.attrs[0].value
+  newImage.photographerLink = photographerLink
+  const textNode = linkNode.childNodes[1]
+  if (!isDefaultTreeTextNode(textNode)) return newImage
+  const photographer = textNode.value
+  newImage.photographer = photographer
+  return newImage
+}
+
 export const imageapi = async (
   location,
   initOpts = {}
@@ -56,27 +79,7 @@ export const imageapi = async (
   const rawImages = results.childNodes.filter((node) =>
     `${getNodeClass(node)}`.includes('image')
   )
-  const enrichedImages = rawImages.map((node) => {
-    const newImage = { ...node }
-    const dataAttrs = node.attrs.filter((attr) => attr.name.includes('data-'))
-    for (const data of dataAttrs) {
-      const name = data.name.split('data-')[1]
-      newImage[name] = data.value
-    }
-
-    const captionNode = parseFragment(newImage.caption)
-    if (!isDefaultTreeDocument(captionNode)) return newImage
-    const linkNode = captionNode.childNodes[0]
-    if (!isDefaultTreeElement(linkNode)) return newImage
-
-    const photographerLink = linkNode.attrs[0].value
-    newImage.photographerLink = photographerLink
-    const textNode = linkNode.childNodes[1]
-    if (!isDefaultTreeTextNode(textNode)) return newImage
-    const photographer = textNode.value
-    newImage.photographer = photographer
-    return newImage
-  })
+  const enrichedImages = rawImages.map(enrichImages)
   const images = {}
   enrichedImages.forEach((node) => {
     const result = {

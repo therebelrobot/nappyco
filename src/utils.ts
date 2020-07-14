@@ -3,15 +3,19 @@ import {
   DefaultTreeElement,
   DefaultTreeTextNode,
 } from 'parse5'
+
 export const isDefaultTreeDocument = (
   tree: unknown
 ): tree is DefaultTreeDocument => tree.hasOwnProperty('childNodes')
+
 export const isDefaultTreeElement = (
   tree: unknown
 ): tree is DefaultTreeElement => tree.hasOwnProperty('attrs')
+
 export const isDefaultTreeTextNode = (
   tree: unknown
 ): tree is DefaultTreeTextNode => tree.hasOwnProperty('value')
+
 export const getNodeClass = (node) => {
   if (!node.attrs) return false
   const attr = node.attrs.filter((attr) => {
@@ -20,6 +24,7 @@ export const getNodeClass = (node) => {
   if (!attr) return false
   return attr.value
 }
+
 export const getTreeResult = (tree: unknown, filter) => {
   console.log('getTreeResult', filter)
   if (!isDefaultTreeDocument(tree)) {
@@ -40,6 +45,7 @@ export const getTreeResult = (tree: unknown, filter) => {
   }
   return getTreeResult(newChild, filterArray.join('.'))
 }
+
 export const extractAjaxSecurityValue = (parsedDocument) => {
   const body = getTreeResult(parsedDocument, 'html.body')
   // console.log(body.childNodes)

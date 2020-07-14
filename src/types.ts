@@ -2,6 +2,7 @@ interface SecurityObject {
   ajax_url: string
   security: string
 }
+
 interface ImageResult {
   url: string
   width: number
@@ -10,9 +11,11 @@ interface ImageResult {
   photographerLink: string
   photographer: string
 }
+
 export interface ImageStore {
   [id: string]: ImageResult
 }
+
 export interface ImageApiResults {
   security?: SecurityObject
   images?: ImageStore
